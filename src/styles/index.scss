@@ -4,42 +4,14 @@
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Nunito", "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
     "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 1.6;
 
   background-color: $background-color;
   color: $text-basic-color;
+  text-align: center;
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
 
-.global-container {
-  margin: 0 auto;
-  padding: 0 10px;
-}
-
-.text :root {
-  scroll-behavior: smooth;
-}
-
-@media (min-width: 768px) {
-  .global-container {
-    padding: 0 32px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .global-container {
-    width: 1024px;
-    padding: 0 60px;
-  }
-}
-
-@media (min-width: 2560px) {
-  .global-container {
-    width: 1170px;
-    padding: 0;
-  }
+  // for fixed header
+  padding-top: 60px;
 }

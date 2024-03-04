@@ -1,9 +1,13 @@
 @import "./colors";
 
 @mixin button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 80px;
   background-color: $primary-color;
   transition: background-color 250ms;
+  cursor: pointer;
   &:hover,
   &:active {
     background-color: $button-hover-color;

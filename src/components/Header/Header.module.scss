@@ -30,3 +30,9 @@
   height: 34px;
   padding: 4px 29px;
 }
+
+@media (min-width: 1025px) {
+  .headerContainer {
+    max-width: 1170px;
+  }
+}
