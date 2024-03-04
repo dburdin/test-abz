@@ -1,5 +1,12 @@
+import { Loader } from "./Loader/Loader";
+
 function App() {
-  return <></>;
+  return (
+    <>
+      <Loader />
+      <div>Text</div>
+    </>
+  );
 }
 
 export default App;

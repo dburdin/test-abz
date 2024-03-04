@@ -1,3 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&family=Oswald&display=swap");
+@import "./colors.scss";
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Nunito", "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-size: 400;
+  background-color: $background-color;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 :root {
   scroll-behavior: smooth;
 }
