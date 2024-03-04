@@ -1,0 +1,11 @@
+@import "./colors";
+
+@mixin button {
+  border-radius: 80px;
+  background-color: $primary-color;
+  transition: background-color 250ms;
+  &:hover,
+  &:active {
+    background-color: $button-hover-color;
+  }
+}

@@ -1,12 +1,9 @@
-import { Loader } from "./Loader/Loader";
+import { Header } from "./Header";
 
-function App() {
+export const App = () => {
   return (
     <>
-      <Loader />
-      <div>Text</div>
+      <Header />
     </>
   );
-}
-
-export default App;
+};

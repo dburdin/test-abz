@@ -1,0 +1,32 @@
+@import "../../styles/mixins.scss";
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background-color: $white-color;
+  z-index: 99;
+}
+
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  height: 100%;
+  width: 100%;
+}
+
+.navContainer {
+  display: flex;
+  gap: 10px;
+}
+
+.navButton {
+  @include button;
+  min-width: 100px;
+  height: 34px;
+  padding: 4px 29px;
+}
