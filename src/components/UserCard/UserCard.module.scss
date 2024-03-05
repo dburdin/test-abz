@@ -41,8 +41,8 @@
     content: attr(title);
     position: absolute;
     bottom: 0;
-    right: 0;
-    transform: translateY(0) scale(0.5);
+    left: 0;
+    transform: translateX(0) translateY(100%) scale(0.5);
     background-color: $text-basic-color;
     color: $white-color;
     padding: 3px 16px;
@@ -55,6 +55,6 @@
 
   &:hover::after {
     opacity: 1;
-    transform: translateY(200%) scale(1);
+    transform: translateX(50%) translateY(200%) scale(1);
   }
 }
