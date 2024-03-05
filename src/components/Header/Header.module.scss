@@ -1,4 +1,4 @@
-@import "../../styles/mixins.scss";
+@import "../../styles/utils/mixins.scss";
 
 .header {
   position: fixed;
@@ -33,6 +33,14 @@
 
 @media (min-width: 1025px) {
   .headerContainer {
+    width: 1100px;
+    gap: 0;
+  }
+}
+
+@media (min-width: 2560px) {
+  .headerContainer {
+    width: auto;
     max-width: 1170px;
   }
 }
