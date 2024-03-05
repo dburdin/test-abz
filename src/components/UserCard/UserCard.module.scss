@@ -1,0 +1,49 @@
+@import "../../styles/utils/colors.scss";
+
+.userCard {
+  padding: 20px;
+  width: 328px;
+  border-radius: 10px;
+
+  @media (min-width: 768px) {
+    width: calc((100% - 16px) / 2);
+  }
+  @media (min-width: 1024px) {
+    width: calc((100% - 58px) / 3);
+  }
+}
+
+.userAvatar {
+  margin: 0 auto;
+  margin-bottom: 20px;
+  border: 50%;
+}
+
+.userName {
+  margin-bottom: 20px;
+}
+
+.tooltip {
+  position: relative;
+  cursor: pointer;
+}
+
+.tooltip::after {
+  content: attr(title);
+  position: absolute;
+  bottom: -21px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: $text-basic-color;
+  color: $white-color;
+  padding: 5px 10px;
+  border-radius: 5px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.tooltip:hover::after {
+  opacity: 1;
+}

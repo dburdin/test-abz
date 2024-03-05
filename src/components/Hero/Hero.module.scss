@@ -5,10 +5,23 @@
   padding-top: 40px;
   padding-bottom: 71px;
 
-  background-image: url("/public/images/hero_background_mobile.png");
+  background-image: url("/images/hero_background_mobile.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+
+  @media (min-width: 768px) {
+    padding: 88px 194px;
+    background-image: url("/images/hero_background_tablet.png");
+  }
+  @media (min-width: 1024px) {
+    padding: 164px 322px;
+    background-image: url("/images/hero_background_pc.png");
+  }
+  @media (min-width: 2560px) {
+    padding: 164px 395px;
+    background-image: url("/images/hero_background_max.png");
+  }
 }
 
 .heroHeading {
@@ -26,23 +39,4 @@
   min-width: 100px;
   height: 34px;
   padding: 4px 22px;
-}
-
-@media (min-width: 768px) {
-  .heroContainer {
-    padding: 88px 194px;
-    background-image: url("/public/images/hero_background_tablet.png");
-  }
-}
-@media (min-width: 1024px) {
-  .heroContainer {
-    padding: 164px 322px;
-    background-image: url("/public/images/hero_background_pc.png");
-  }
-}
-@media (min-width: 2560px) {
-  .heroContainer {
-    padding: 164px 395px;
-    background-image: url("/public/images/hero_background_max.png");
-  }
 }

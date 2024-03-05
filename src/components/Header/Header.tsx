@@ -9,7 +9,9 @@ export const Header = () => {
           <img width={104} src={logo} alt="a face of the painted cat, logo" />
         </a>
         <nav className={style.navContainer}>
-          <a className={style.navButton}>Users</a>
+          <a className={style.navButton} href="#users">
+            Users
+          </a>
           <a className={style.navButton} href="#sign-up">
             Sign up
           </a>

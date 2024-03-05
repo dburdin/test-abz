@@ -22,7 +22,8 @@ p {
   line-height: 1.6;
   text-align: center;
 }
-h1 {
+h1,
+h2 {
   font-weight: 400;
   font-size: 40px;
   line-height: 1;
@@ -31,7 +32,7 @@ h1 {
 
 .global-container {
   margin: 0 auto;
-  padding: 0 10px;
+  padding: 0 16px;
 
   @media (min-width: 768px) {
     padding: 0 32px;
