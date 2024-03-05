@@ -4,6 +4,7 @@
   padding: 20px;
   width: 328px;
   border-radius: 10px;
+  background-color: $white-color;
 
   @media (min-width: 768px) {
     width: calc((100% - 16px) / 2);
@@ -16,34 +17,44 @@
 .userAvatar {
   margin: 0 auto;
   margin-bottom: 20px;
-  border: 50%;
+  border-radius: 50%;
 }
 
 .userName {
   margin-bottom: 20px;
 }
 
-.tooltip {
-  position: relative;
+.title {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.6;
+  text-align: center;
+
   cursor: pointer;
 }
 
-.tooltip::after {
-  content: attr(title);
-  position: absolute;
-  bottom: -21px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: $text-basic-color;
-  color: $white-color;
-  padding: 5px 10px;
-  border-radius: 5px;
-  white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
+.tooltip {
+  position: relative;
+  cursor: pointer;
 
-.tooltip:hover::after {
-  opacity: 1;
+  &::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    transform: translateY(0) scale(0.5);
+    background-color: $text-basic-color;
+    color: $white-color;
+    padding: 3px 16px;
+    border-radius: 4px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
+      transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &:hover::after {
+    opacity: 1;
+    transform: translateY(200%) scale(1);
+  }
 }
