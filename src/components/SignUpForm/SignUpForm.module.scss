@@ -1,4 +1,6 @@
 @import "../../styles/utils/colors.scss";
+@import "../../styles/utils/hidden.scss";
+@import "../../styles/utils/mixins.scss";
 
 .signUpForm {
   max-width: 328px;
@@ -35,6 +37,8 @@
 .input {
   display: block;
   width: 100%;
+  max-width: 328px;
+
   padding: 14px;
   background-color: transparent;
   border: 1px solid $input-color;
@@ -43,8 +47,140 @@
   &:focus + .placeholder {
     font-size: 12px;
     padding: 0 4px;
-    transform: translate(16px, -5px) scale(0.9);
+    transform: translate(16px, -5px) scale(0.99);
     background-color: $background-color;
     font-weight: 500;
   }
+  @media (min-width: 768px) {
+    min-width: 380px;
+  }
+}
+.tip {
+  position: absolute;
+  bottom: 0;
+  left: 16px;
+  transform: translateY(100%);
+  font-size: 12px;
+  line-height: 1.7;
+  color: $input-label-color;
+}
+
+//radio
+.radioContainer {
+  margin-bottom: 47px;
+}
+.radioLabel {
+  position: relative;
+  display: block;
+  cursor: pointer;
+  text-align: start;
+  &:not(:last-child) {
+    margin-bottom: 7px;
+  }
+}
+.radioTitle {
+  margin-bottom: 11px;
+  text-align: start;
+}
+.outerCircle,
+.innerCircle {
+  position: absolute;
+  top: 3px;
+  left: 0;
+  display: inline-block;
+  border-radius: 50%;
+}
+.outerCircle {
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  border: 1px solid $input-color;
+}
+
+.innerCircle {
+  width: 10px;
+  height: 10px;
+  background-color: transparent;
+  transform: translate(50%, 50%);
+}
+
+.radioLabelText {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-left: 30px;
+}
+
+input[type="radio"]:checked ~ .innerCircle {
+  background-color: $secondary-color;
+}
+
+input[type="radio"]:checked ~ .outerCircle {
+  border-color: $secondary-color;
+}
+
+// input file
+.upload {
+  position: relative;
+  cursor: pointer;
+  margin-bottom: 50px;
+}
+.uploadContainer {
+  display: flex;
+  max-width: 328px;
+
+  &:hover .uploadLabel,
+  &:focus .active {
+    border-color: $button-hover-color;
+  }
+
+  @media (min-width: 768px) {
+    min-width: 380px;
+  }
+}
+.uploadInputContainer {
+  position: relative;
+  flex: 1 1 auto;
+  overflow: hidden;
+  border: 1px solid $input-color;
+  border-left: none;
+  border-radius: 0px 4px 4px 0px;
+}
+
+.uploadLabel {
+  font-size: 16px;
+  line-height: 1.6;
+  padding: 14px 15px;
+  border: 1px solid $text-basic-color;
+  border-radius: 4px 0px 0px 4px;
+  cursor: pointer;
+
+  transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.uploadInput {
+  font-size: 16px;
+  line-height: 26px;
+  width: 100%;
+  padding: 14px 16px;
+}
+.uploadTip {
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
+  font-size: 12px;
+  line-height: 1.7;
+  color: $input-label-color;
+}
+
+//sbm btn
+
+.submitButton {
+  @include button;
+  width: 100px;
+  padding: 4px 22px;
+}
+.disabled {
+  background-color: $button-disabled-color;
+  color: $white-color;
+  cursor: not-allowed;
 }
