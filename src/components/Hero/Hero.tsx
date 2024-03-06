@@ -11,7 +11,7 @@ export const Hero = () => {
           with accessibility in mind. They should also be excited to learn, as the world of
           Front-End Development keeps evolving.
         </p>
-        <a className={styles.signUpButton} id="sign-up">
+        <a className={styles.signUpButton} href="#sign-up">
           Sign Up
         </a>
       </div>

@@ -1,7 +1,10 @@
 import { useState } from "react";
+
+import { User } from "../../interfaces/interfaces";
+
 import { Hero } from "../Hero";
 import { Users } from "../Users";
-import { User } from "../../interfaces/interfaces";
+import { SignUpSection } from "../SignUpSection";
 
 export const Main = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -10,6 +13,7 @@ export const Main = () => {
     <main>
       <Hero />
       <Users users={users} setUsers={setUsers} />
+      <SignUpSection />
     </main>
   );
 };
