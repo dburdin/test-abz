@@ -17,27 +17,41 @@ export const Users = ({
   setUsers: Dispatch<React.SetStateAction<User[]>>;
 }) => {
   const [page, setPage] = useState(1);
-  const [isLoading, setIsloading] = useState(false);
-  const [totalUsers, setTotalUsers] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLastPage, setIsLastPage] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
-      setIsloading(true);
+      setIsLoading(true);
+
       try {
         const { data } = await FetchData(page, 6);
-        const { total_users: totalUsers } = data;
 
-        setTotalUsers(totalUsers);
+        const { total_pages: totalPages, users } = data;
 
-        if (data) {
-          setUsers((prevUsers) => [...prevUsers, ...data.users]);
+        if (users) {
+          setUsers((prevUsers) => {
+            const isPrevUsers = users.some((currentUser: User) => {
+              return prevUsers.some((prevItem) => prevItem.id === currentUser.id);
+            });
+
+            if (isPrevUsers) {
+              return prevUsers;
+            }
+
+            if (totalPages === page) {
+              setIsLastPage(true);
+            }
+
+            return [...prevUsers, ...users];
+          });
         } else {
           toast.error("No data available");
         }
       } catch (error) {
         toast.error("Error fetching data");
       } finally {
-        setIsloading(false);
+        setIsLoading(false);
       }
     };
 
@@ -62,7 +76,7 @@ export const Users = ({
         {isLoading ? (
           <Loader />
         ) : (
-          totalUsers !== users.length &&
+          !isLastPage &&
           !isLoading && (
             <button onClick={loadMore} className={styles.userButton}>
               Show More
