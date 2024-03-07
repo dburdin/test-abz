@@ -4,7 +4,8 @@ import toast from "react-hot-toast";
 import styles from "./Users.module.scss";
 
 import { FetchData } from "../../api/api";
-import { User } from "../../interfaces/interfaces";
+import { User } from "../../types/types";
+import { USERS_ENDPOINT } from "../../consts/consts";
 
 import { UserCard } from "../UserCard";
 import { Loader } from "../Loader";
@@ -25,7 +26,7 @@ export const Users = ({
       setIsLoading(true);
 
       try {
-        const { data } = await FetchData(page, 6);
+        const { data } = await FetchData(USERS_ENDPOINT, { page, count: 6 });
 
         const { total_pages: totalPages, users } = data;
 

@@ -7,6 +7,10 @@
   height: 651px;
   margin: 0 auto;
   margin-top: 50px;
+
+  @media (min-width: 768px) {
+    max-width: 380px;
+  }
 }
 
 //input
@@ -44,7 +48,8 @@
   border: 1px solid $input-color;
   border-radius: 4px;
 
-  &:focus + .placeholder {
+  &:focus + .placeholder,
+  &:not(:placeholder-shown) + .placeholder {
     font-size: 12px;
     padding: 0 4px;
     transform: translate(16px, -5px) scale(0.99);
@@ -127,12 +132,6 @@ input[type="radio"]:checked ~ .outerCircle {
 .uploadContainer {
   display: flex;
   max-width: 328px;
-
-  &:hover .uploadLabel,
-  &:focus .active {
-    border-color: $button-hover-color;
-  }
-
   @media (min-width: 768px) {
     min-width: 380px;
   }
@@ -140,10 +139,11 @@ input[type="radio"]:checked ~ .outerCircle {
 .uploadInputContainer {
   position: relative;
   flex: 1 1 auto;
-  overflow: hidden;
   border: 1px solid $input-color;
   border-left: none;
   border-radius: 0px 4px 4px 0px;
+
+  float: right;
 }
 
 .uploadLabel {
@@ -154,22 +154,28 @@ input[type="radio"]:checked ~ .outerCircle {
   border-radius: 4px 0px 0px 4px;
   cursor: pointer;
 
-  transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  margin-right: -1px;
 }
+
 .uploadInput {
-  font-size: 16px;
-  line-height: 26px;
+  display: block;
   width: 100%;
-  padding: 14px 16px;
-}
-.uploadTip {
-  position: absolute;
-  top: 50%;
-  left: 16px;
-  transform: translateY(-50%);
-  font-size: 12px;
-  line-height: 1.7;
-  color: $input-label-color;
+  height: 100%;
+  padding: 15px;
+
+  cursor: pointer;
+
+  &::before {
+    content: attr(title);
+    position: absolute;
+    top: 50%;
+    left: 16px;
+    transform: translateY(-50%);
+    font-size: 12px;
+    line-height: 1.7;
+    color: $input-label-color;
+    cursor: pointer;
+  }
 }
 
 //sbm btn
@@ -183,4 +189,27 @@ input[type="radio"]:checked ~ .outerCircle {
   background-color: $button-disabled-color;
   color: $white-color;
   cursor: not-allowed;
+}
+
+.error {
+  font-size: 12px;
+  position: absolute;
+  bottom: -5px;
+  left: 16px;
+  transform: translateY(100%);
+  color: $input-error-color;
+}
+
+.errorInput {
+  border: 1px solid $input-error-color;
+  & + .placeholder {
+    color: $input-error-color;
+  }
+}
+.errorUploadInput {
+  border: 1px solid $input-error-color;
+}
+
+.registeredHeading {
+  margin-bottom: 50px;
 }

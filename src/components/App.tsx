@@ -7,7 +7,7 @@ import { Footer } from "./Footer";
 export const App = () => {
   return (
     <>
-      <Toaster />
+      <Toaster position="top-right" reverseOrder={false} />
       <Header />
       <Main />
       {/* not necessarily in this case, but if footer existed as usual */}

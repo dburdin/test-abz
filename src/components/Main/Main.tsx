@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { User } from "../../interfaces/interfaces";
+import { User } from "../../types/types";
 
 import { Hero } from "../Hero";
 import { Users } from "../Users";
