@@ -15,7 +15,7 @@ export type Position = {
 };
 
 export type ApiGetParams = {
-  page: number;
+  page?: number;
   count: number;
 };
 export type ApiPostParams = {

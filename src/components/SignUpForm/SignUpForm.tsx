@@ -1,10 +1,10 @@
 import { useFormik } from "formik";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Dispatch } from "react";
 import toast from "react-hot-toast";
 
 import styles from "./SignUpForm.module.scss";
 
-import { isInputFocused } from "../../helpers/focusManager";
+import { Loader } from "../Loader";
 
 import { getTruncatedText } from "../../helpers/trimUtils";
 
@@ -16,10 +16,14 @@ import { POSITIONS_ENDPOINT, TOKEN_ENDPOINT, USERS_ENDPOINT } from "../../consts
 
 import { validationSchema } from "../../schemas/signUpValidationSchema";
 
-export const SignUpForm = () => {
+export const SignUpForm = ({
+  setStatus,
+}: {
+  setStatus: Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const [positions, setPositions] = useState<Position[]>([]);
   const [token, setToken] = useState<string>("");
-  const [isSent, setIsSent] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [fileName, setFileName] = useState<string>("");
@@ -29,12 +33,14 @@ export const SignUpForm = () => {
   const {
     handleBlur,
     handleChange,
+    handleSubmit,
     errors,
     touched,
     values,
     resetForm,
     isSubmitting,
     setFieldValue,
+    isValid,
   } = useFormik({
     initialValues: {
       name: "",
@@ -43,10 +49,38 @@ export const SignUpForm = () => {
       photo: "",
       positionId: "",
     },
+    validationSchema,
     validateOnBlur: true,
     validateOnChange: true,
-    validationSchema,
-    onSubmit: () => {},
+    validateOnMount: true,
+    onSubmit: async () => {
+      const { name, email, phone, positionId, photo } = values;
+
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("email", email);
+      formData.append("phone", phone);
+      formData.append("position_id", positionId.toString());
+      formData.append("photo", photo);
+      try {
+        setIsLoading(true);
+        const response = await PostData(USERS_ENDPOINT, token, formData);
+
+        if (response.status === 200 || response.status === 201) {
+          toast.success("Signup successful");
+          resetForm();
+          setStatus(true);
+          handlePreviewRemove();
+        } else {
+          toast.error("Signup failed");
+        }
+      } catch (error) {
+        console.log(error);
+        toast.error("Error during signup");
+      } finally {
+        setIsLoading(false);
+      }
+    },
   });
 
   useEffect(() => {
@@ -104,45 +138,23 @@ export const SignUpForm = () => {
 
       reader.readAsDataURL(file);
     } else {
-      setFieldValue("photo", null);
       setSelectedFile(null);
       setFileName("");
       setPreviewImage(null);
+      setFieldValue("photo", "");
     }
   };
 
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    const { name, email, phone, positionId, photo } = values;
-
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("email", email);
-    formData.append("phone", phone);
-    formData.append("position_id", positionId.toString());
-    formData.append("photo", photo);
-    try {
-      const response = await PostData(USERS_ENDPOINT, token, formData);
-
-      if (response.status === 200 || response.status === 201) {
-        setIsSent(true);
-        toast.success("Signup successful");
-        resetForm();
-        setIsSent(true);
-      } else {
-        toast.error("Signup failed");
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error("Error during signup");
-    }
+    handleSubmit(event);
   };
 
-  const handlePreviewClick = () => {
+  const handlePreviewRemove = () => {
     setSelectedFile(null);
     setFileName("");
     setPreviewImage(null);
+    setFieldValue("photo", "");
   };
 
   return (
@@ -212,7 +224,7 @@ export const SignUpForm = () => {
           {errors.phone && touched.phone ? (
             <p className={styles.error}>{errors.phone}</p>
           ) : (
-            !isInputFocused("phone") && <p className={styles.tip}>+38 (XXX) XXX - XX - XX</p>
+            <p className={styles.tip}>+38 (XXX) XXX - XX - XX</p>
           )}
         </div>
 
@@ -265,30 +277,27 @@ export const SignUpForm = () => {
           </div>
         </div>
 
-        <button
-          type="submit"
-          className={`${styles.submitButton} ${isSubmitting && styles.disabled}`}
-        >
-          Sign Up
-        </button>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <button
+            type="submit"
+            className={`${styles.submitButton}  ${(!isValid || isSubmitting) && styles.disabled}`}
+          >
+            Sign Up
+          </button>
+        )}
       </form>
 
       {selectedFile && previewImage && (
         <div>
           <img
-            onClick={handlePreviewClick}
-            style={{ borderRadius: "4px", marginBottom: "10px", cursor: "pointer" }}
+            onClick={handlePreviewRemove}
+            style={{ borderRadius: "4px", marginTop: "40px", cursor: "pointer" }}
             src={previewImage}
             alt="Preview"
             width={200}
           />
-        </div>
-      )}
-
-      {isSent && (
-        <div>
-          <h2 className={styles.registeredHeading}>User successfully registered</h2>
-          <img width={328} src="/svg/success-image.svg" alt="registered successfully" />
         </div>
       )}
     </>

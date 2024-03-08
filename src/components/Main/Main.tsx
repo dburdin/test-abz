@@ -13,7 +13,7 @@ export const Main = () => {
     <main>
       <Hero />
       <Users users={users} setUsers={setUsers} />
-      <SignUpSection />
+      <SignUpSection setUsers={setUsers} />
     </main>
   );
 };

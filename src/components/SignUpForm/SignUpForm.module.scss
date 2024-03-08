@@ -43,6 +43,8 @@
   width: 100%;
   max-width: 328px;
 
+  font-size: 16px;
+
   padding: 14px;
   background-color: transparent;
   border: 1px solid $input-color;
@@ -188,7 +190,7 @@ input[type="radio"]:checked ~ .outerCircle {
 .disabled {
   background-color: $button-disabled-color;
   color: $white-color;
-  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .error {
