@@ -6,7 +6,7 @@ import { Hero } from "../Hero";
 import { Users } from "../Users";
 import { SignUpSection } from "../SignUpSection";
 
-export const Main = () => {
+const Main = () => {
   const [users, setUsers] = useState<User[]>([]);
 
   return (
@@ -17,3 +17,5 @@ export const Main = () => {
     </main>
   );
 };
+
+export default Main;

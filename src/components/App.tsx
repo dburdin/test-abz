@@ -1,8 +1,21 @@
 import { Toaster } from "react-hot-toast";
+import { lazy } from "react";
 
-import { Header } from "./Header";
-import { Main } from "./Main";
-import { Footer } from "./Footer";
+const Header = lazy(() =>
+  import("./Header").then(({ Header }) => ({
+    default: Header,
+  }))
+);
+const Main = lazy(() =>
+  import("./Main").then(({ Main }) => ({
+    default: Main,
+  }))
+);
+const Footer = lazy(() =>
+  import("./Footer").then(({ Footer }) => ({
+    default: Footer,
+  }))
+);
 
 export const App = () => {
   return (

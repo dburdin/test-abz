@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import { useEffect, useState, Dispatch } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 import styles from "./SignUpForm.module.scss";
@@ -16,17 +16,12 @@ import { POSITIONS_ENDPOINT, TOKEN_ENDPOINT, USERS_ENDPOINT } from "../../consts
 
 import { validationSchema } from "../../schemas/signUpValidationSchema";
 
-export const SignUpForm = ({
-  setStatus,
-}: {
-  setStatus: Dispatch<React.SetStateAction<boolean>>;
-}) => {
+export const SignUpForm = ({ setStatus }: { setStatus: (status: boolean) => void }) => {
   const [positions, setPositions] = useState<Position[]>([]);
   const [token, setToken] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [fileName, setFileName] = useState<string>("");
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [photoError, setPhotoError] = useState<string | null>(null);
 
@@ -84,26 +79,19 @@ export const SignUpForm = ({
   });
 
   useEffect(() => {
-    const getData = async () => {
+    const fetchData = async () => {
       try {
-        const { data } = await FetchData(POSITIONS_ENDPOINT);
-        setPositions(data.positions);
+        const positionsResponse = await FetchData(POSITIONS_ENDPOINT);
+        setPositions(positionsResponse.data.positions);
+
+        const tokenResponse = await FetchData(TOKEN_ENDPOINT);
+        setToken(tokenResponse.data.token);
       } catch (error) {
-        toast.error("Error fetching data");
+        toast.error("Error fetching data or token");
       }
     };
 
-    const getToken = async () => {
-      try {
-        const { data } = await FetchData(TOKEN_ENDPOINT);
-        setToken(data.token);
-      } catch (error) {
-        toast.error("Error fetching token");
-      }
-    };
-
-    getData();
-    getToken();
+    fetchData();
   }, []);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -129,7 +117,6 @@ export const SignUpForm = ({
 
           setPhotoError(null);
           setSelectedFile(file);
-          setFileName(file.name);
           setPreviewImage(URL.createObjectURL(file));
           setFieldValue("photo", file);
         };
@@ -139,27 +126,20 @@ export const SignUpForm = ({
       reader.readAsDataURL(file);
     } else {
       setSelectedFile(null);
-      setFileName("");
       setPreviewImage(null);
       setFieldValue("photo", "");
     }
   };
 
-  const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    handleSubmit(event);
-  };
-
   const handlePreviewRemove = () => {
     setSelectedFile(null);
-    setFileName("");
     setPreviewImage(null);
     setFieldValue("photo", "");
   };
 
   return (
     <>
-      <form onSubmit={handleFormSubmit} className={styles.signUpForm}>
+      <form onSubmit={handleSubmit} className={styles.signUpForm}>
         <div className={styles.inputContainer}>
           <input
             className={
@@ -259,7 +239,7 @@ export const SignUpForm = ({
               className={`${styles.uploadInputContainer} ${photoError && styles.errorUploadInput}`}
             >
               <label
-                title={selectedFile ? getTruncatedText(fileName) : "Upload your photo"}
+                title={selectedFile ? getTruncatedText(selectedFile.name) : "Upload your photo"}
                 className={styles.uploadInput}
                 htmlFor="photo"
               >

@@ -1,7 +1,7 @@
 import style from "./Header.module.scss";
 import logo from "/svg/logo.svg";
 
-export const Header = () => {
+const Header = () => {
   return (
     <header className={style.header} datatype="header">
       <div className={`${style.headerContainer} global-container`}>
@@ -20,3 +20,5 @@ export const Header = () => {
     </header>
   );
 };
+
+export default Header;
