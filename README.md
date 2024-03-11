@@ -40,7 +40,7 @@ To get started with the project, follow these steps:
 </p>
 
 
-### Results of self-testing (desktop):
+## Results of self-testing (desktop):
 <p  align="center">
   <img src="https://i.ibb.co/s2nsfFX/results.png" />
 </p>
