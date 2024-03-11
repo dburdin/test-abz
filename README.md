@@ -33,3 +33,14 @@ To get started with the project, follow these steps:
 `$ npm run dev`
 
 4. Enjoy &#128640;
+
+## Results of self-testing (mobile):
+<p  align="center">
+  <img src="https://i.ibb.co/CKJ95ZJ/results.png" />
+</p>
+
+
+### Results of self-testing (desktop):
+<p  align="center">
+  <img src="https://i.ibb.co/s2nsfFX/results.png" />
+</p>
